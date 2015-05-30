@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('LoginCtrl', function($scope, $state, $http, ngFB, Users, Settings) {
+.controller('LoginCtrl', function($scope, $rootScope, $state, $http, ngFB, Users, Settings) {
   $scope.fbLogin = function() {
     ngFB.login({scope: 'email'}).then(
       function (response) {
@@ -17,7 +17,7 @@ angular.module('starter.controllers', [])
                 console.log('Got local user.', data);
                 // User exists
                 var user = new Users(data);
-                Settings.user = user;
+                $rootScope.user = Settings.user = user;
                 $scope.closeLogin();
               }, function (_data, status) {
                 console.error('No local user found. Creating.');
@@ -60,7 +60,8 @@ angular.module('starter.controllers', [])
 .controller('RequestsCtrl', function($scope, $ionicModal, Requests, Settings) {
   $scope.requests = Requests.query();
   var _req = {
-    user_id: Settings.user.id
+    user_id: Settings.user.id,
+    status: 'waiting'
   };
   $scope.req = _req;
   $ionicModal.fromTemplateUrl('templates/modal-new-request.html', {
@@ -99,8 +100,38 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('RequestDetailCtrl', function($scope, $stateParams, Requests) {
+.controller('RequestDetailCtrl', function($scope, $state, $stateParams, Requests, Settings) {
   $scope.request = Requests.get({id: $stateParams.requestId});
+  $scope.respond = function() {
+    $scope.request.status = "inprogress";
+    $scope.request.responder_id = Settings.user.id;
+    $scope.request.$save();
+  }
+  $scope.cancel = function() {
+    $scope.request.canceled = true;
+    $scope.request.$save(function(data, status){
+      $state.go('tab.requests');
+    }, function(data, status) {
+      // TODO error
+    });
+  }
+  $scope.cancelOffer = function() {
+    $scope.request.status = "waiting";
+    $scope.request.responder_id = null;
+    $scope.request.$save(function(data, status){
+      $state.reload();
+    }, function(data, status) {
+      // TODO error
+    });
+  }
+  $scope.decline = function() {
+    $scope.request.responder_id = null;
+    $scope.request.$save(function(data, status){
+      $state.reload();
+    }, function(data, status) {
+      // TODO error
+    });
+  }
 })
 
 .controller('AccountCtrl', function($scope, $rootScope, ngFB, Settings, Users) {

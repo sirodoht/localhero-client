@@ -8,19 +8,48 @@
   <ion-content>
 
     <div class="bar bar-header bar-light">
-      <h1 class="title">{{request.title}}</h1>
+      <h1 class="title">{{request.title}}
+        <span class="badge badge-assertive" ng-show="!request.status || request.status=='waiting'">no response</span>
+        <span class="badge badge-energized" ng-show="request.status=='inprogress'">in proress</span>
+        <span class="badge badge-balanced" ng-show="request.status=='completed'">completed!</span>
+      </h1>
     </div>
 
-    <div class="bar bar-subheader" ng-class="{'bar-assertive': (!request.status || request.status=='waiting'), 'bar-energized': (request.status=='inprogress'), 'bar-balanced': (request.status=='completed')}">
+    <!-- <div class="bar bar-subheader" ng-class="{'bar-assertive': (!request.status || request.status=='waiting'), 'bar-energized': (request.status=='inprogress'), 'bar-balanced': (request.status=='completed')}">
       <h3 class="title" ng-show="!request.status || request.status=='waiting'">no response</h3>
       <h3 class="title" ng-show="request.status=='inprogress'">in proress</h3>
       <h3 class="title" ng-show="request.status=='completed'">completed!</h3>
+    </div> -->
+
+    <br><br>
+
+    <div class="card">
+      <div class="item item-divider">
+        Location: {{request.location}}
+      </div>
+      <div class="item item-text-wrap">
+        {{request.description}}
+      </div>
+      <div class="item item-divider" ng-show="request.price>0">
+        I can pay up to {{request.price}} euros.
+      </div>
+      <div class="item item-divider" ng-show="!request.price">
+        I cannot pay for this request.
+      </div>
     </div>
 
-    <!-- <img ng-src="{{chat.face}}" style="width: 64px; height: 64px"> -->
-    <p>
-      {{request.location}}
-    </p>
+    <div class="padding" ng-show="request.user_id!=user.id && request.responder_id==user.id && request.status=='inprogress'">
+      <button class="button button-block button-balanced activated" ng-click="cancelOffer()">Cancel offer</button>
+    </div>
+    <div class="padding" ng-show="request.user_id!=user.id && request.status=='waiting'">
+      <button class="button button-block button-balanced activated" ng-click="respond()">I can help!</button>
+    </div>
+    <div class="padding" ng-show="request.user_id==user.id && request.status=='inprogress'">
+      <button class="button button-block button-energized activated" ng-click="decline()">Decline offer</button>
+    </div>
+    <div class="padding" ng-show="request.user_id==user.id && request.status=='waiting'">
+      <button class="button button-block button-assertive activated" ng-click="cancel()">Cancel request</button>
+    </div>
 
   </ion-content>
 </ion-view>
