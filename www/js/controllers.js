@@ -30,7 +30,7 @@ angular.module('starter.controllers', [])
   $scope.chat = Chats.get($stateParams.chatId);
 })
 
-.controller('AccountCtrl', function($scope, ngFB) {
+.controller('AccountCtrl', function($scope, $rootScope, ngFB) {
   ngFB.api({
     path: '/me',
     params: {fields: 'id,name'}
@@ -42,4 +42,14 @@ angular.module('starter.controllers', [])
       alert('Facebook error: ' + error.error_description);
     }
   );
+
+  $scope.abilities = ['one', 'two', 'three'];
+  $scope.userAbilities = [];
+  $scope.addAbility = function(ability) {
+    $scope.userAbilities.push(ability);
+  }
+  $scope.removeAbility = function(ability) {
+    var index = $scope.userAbilities.indexOf(ability);
+    $scope.userAbilities.splice(index, 1);
+  }
 });

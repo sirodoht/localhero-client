@@ -1,13 +1,33 @@
 <ion-view view-title="Account">
-    <ion-content class="has-header">
+    <ion-content class="has-header" class="padding">
         <div class="list card">
             <div class="item">
-                <h2>{{user.name}}</h2>
-                <p>{{user.city}}</p>
-            </div>
-            <div class="item item-body">
-                <img src="http://graph.facebook.com/{{user.id}}/picture?width=270&height=270"/>
+                <h2><img src="http://graph.facebook.com/{{user.id}}/picture?width=270&height=270" height="50"/> {{user.name}}</h2>
+                <!-- <p>{{user.city}}</p> -->
             </div>
         </div>
+
+        <!-- <div class="bar bar-subheader">
+          <h2 class="title">Your abilities</h2>
+        </div> -->
+
+        <div class="list list-inset">
+          <div class="list">
+            <label class="item item-input">
+              <input type="text" placeholder="Filter abilities" ng-model="searchText">
+            </label>
+          </div>
+
+          <div class="item item-button-right" ng-repeat="ability in abilities | filter:searchText">
+            {{ability}}
+            <button class="button button-balanced" ng-show="userAbilities.indexOf(ability)<0" ng-click="addAbility(ability)">
+              <i class="icon ion-plus"></i>
+            </button>
+            <button class="button button-assertive" ng-show="userAbilities.indexOf(ability)>=0" ng-click="removeAbility(ability)">
+              <i class="icon ion-minus"></i>
+            </button>
+          </div>
+        </div>
+
     </ion-content>
 </ion-view>
