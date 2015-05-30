@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'ngOpenFB'])
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'ngResource', 'ngOpenFB'])
 
 .run(function($ionicPlatform, $state, ngFB) {
   $ionicPlatform.ready(function() {
@@ -24,6 +24,19 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     $state.go('login');
 
   });
+})
+
+.service('Settings', function() {
+  return {
+    url: 'http://188.166.100.201',
+    user: {}
+  };
+})
+
+.service('Users', function($resource, Settings) {
+  return $resource(Settings.url+'/user/:id', {id: '@id'}, {
+    // charge: {method:'POST', params:{charge:true}}
+   });
 })
 
 .config(function($stateProvider, $urlRouterProvider) {
