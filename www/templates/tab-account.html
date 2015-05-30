@@ -1,10 +1,8 @@
 <ion-view view-title="Account">
     <ion-content class="has-header" class="padding">
-        <div class="list card">
-            <div class="item">
-                <h2><img src="http://graph.facebook.com/{{user.id}}/picture?width=270&height=270" height="50"/> {{user.name}}</h2>
-                <!-- <p>{{user.city}}</p> -->
-            </div>
+        <div class="account">
+          <h2><img class="circle" src="http://graph.facebook.com/{{user.id}}/picture?width=270&height=270" height="100"/><br />{{user.name}}</h2>
+          <p>{{user.city}}</p>
         </div>
 
         <!-- <div class="bar bar-subheader">
@@ -32,6 +30,14 @@
             </button> -->
           </div>
         </div>
+
+        <div class="card">
+          <map center="current-location" zoom="12">
+           <info-window position="current-location" visible="true">
+             <span>Our local hero; <strong>You!</strong></span>
+           </info-window>
+         </map>
+       </div>
 
     </ion-content>
 </ion-view>

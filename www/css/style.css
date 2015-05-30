@@ -101,3 +101,14 @@
   margin-top: 0px;
   margin-bottom: 15px;
 }
+.circle {
+  border-radius: 50%;
+  vertical-align: middle;
+}
+.account {
+  padding-top: 15px;
+}
+.account h2 {
+  font-size: 23px;
+  text-align: center;
+}
