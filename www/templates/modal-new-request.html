@@ -13,17 +13,24 @@
           <span class="input-label">Details</span>
           <textarea placeholder="Need some help changing a tyre, can't seem to get the screws off." ng-model="req.description"></textarea>
         </label>
-        <label class="item item-input item-stacked-label">
-          <span class="input-label">Location</span>
-          <input type="text" placeholder="Athens, Gazi" ng-model="req.location">
+        <label class="item item-input item-select">
+          <div class="input-label">
+            Need help with
+          </div>
+          <select ng-options="ability as ability for ability in abilities" ng-model="req.abilities[0]"></select>
         </label>
-        <label class="item item-input item-stacked-label">
+        <label class="item item-input">
+          <span class="input-label">Location</span>
+          <input type="text" placeholder="Athens, Gazi" ng-model="req.location" style="text-align: right;">
+        </label>
+        <label class="item item-input">
           <span class="input-label">Payment (€)</span>
-          <input type="number" placeholder="10" ng-model="req.paymentSuggested" value="0" required="required">
+          <input type="number" placeholder="10" ng-model="req.paymentSuggested" value="0" required="required" style="text-align: right;">
         </label>
       </div>
       <div class="padding">
-        <button class="button button-block button-positive activated">Submit Request</button>
+        <button type="submit" class="button button-block button-positive activated">Submit Request</button>
+        <button class="button button-block" ng-click="closeModal()">Cancel</button>
       </div>
     </form>
   </ion-content>
