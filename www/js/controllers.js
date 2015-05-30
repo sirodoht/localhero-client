@@ -125,6 +125,7 @@ angular.module('starter.controllers', [])
     $scope.request.messages.push({
       message: msg,
       name: Settings.user.name,
+      user_id: Settings.user.id,
       displayPicture: "http://graph.facebook.com/"+Settings.user.id+"/picture?width=100&height=100",
       dt: new Date()
     });
