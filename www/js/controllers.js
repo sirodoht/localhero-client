@@ -159,6 +159,7 @@ angular.module('starter.controllers', [])
     });
   }
   $scope.decline = function() {
+    $scope.request.status = "waiting";
     $scope.request.responder_id = null;
     $scope.request.$save(function(data, status){
       $state.reload();
