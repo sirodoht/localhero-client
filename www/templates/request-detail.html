@@ -20,13 +20,11 @@
       <h3 class="title" ng-show="request.status=='completed'">completed!</h3>
     </div> -->
 
-    <br><br>
-
     <div class="card">
-      <div class="item item-divider">
+      <!-- <div class="item item-divider">
         Location: {{request.location}}
-      </div>
-      <div class="item item-text-wrap">
+      </div> -->
+      <div class="item item-text-wrap" ng-show="request.description">
         {{request.description}}
       </div>
       <div class="item item-divider" ng-show="request.price>0">
@@ -69,6 +67,14 @@
         </button>
       </div>
     </form>
+
+    <div class="card" ng-if="request.location.longitude && request.location.latitude">
+      <map center="{{request.location.latitude}}, {{request.location.longitude}}" zoom="6">
+       <info-window position="current-location" visible="true">
+         <div style="line-height: 25px;"><img style="vertical-align: middle;" class="circle" src="{{request.user.displayPicture}}" height="25" alt=""> {{request.user.name}}</div>
+       </info-window>
+     </map>
+   </div>
 
   </ion-content>
 </ion-view>

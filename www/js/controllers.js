@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('LoginCtrl', function($scope, $rootScope, $state, $http, ngFB, Users, Settings) {
+.controller('LoginCtrl', function($scope, $rootScope, $state, $http, $cordovaGeolocation, ngFB, Users, Settings) {
   $scope.fbLogin = function() {
     $rootScope.abilities = ['programming', 'engineering', 'gardening', 'knitting'];
     ngFB.login({scope: 'email'}).then(
@@ -13,14 +13,27 @@ angular.module('starter.controllers', [])
             params: {fields: 'id,name,email'}
           }).then(
             function (fbUser) {
-
+              fbUser.displayPicture = "http://graph.facebook.com/"+fbUser.id+"/picture?width=300&height=300";
               Users.get({id: fbUser.id}, function(data, status) {
                 console.log('Got local user.', data);
                 // User exists
                 var user = new Users(data);
                 angular.extend(user, fbUser);
                 $rootScope.user = Settings.user = user;
-                user.$save();
+                user.$save(function(){
+                  var posOptions = {timeout: 10000, enableHighAccuracy: false};
+                  $cordovaGeolocation
+                  .getCurrentPosition(posOptions)
+                  .then(function (position) {
+                    user.location = {
+                      latitude: position.coords.latitude,
+                      longitude: position.coords.longitude
+                    };
+                    user.$save();
+                  }, function(err) {
+                    // error
+                  });
+                });
                 $scope.closeLogin();
               }, function (_data, status) {
                 console.error('No local user found. Creating.');
@@ -32,6 +45,19 @@ angular.module('starter.controllers', [])
                 .then(function (user) {
                   console.log('Created new user.', user);
                   Settings.user = user;
+                  var posOptions = {timeout: 10000, enableHighAccuracy: false};
+                  $cordovaGeolocation
+                  .getCurrentPosition(posOptions)
+                  .then(function (position) {
+                    user.location = {
+                      latitude: position.coords.latitude,
+                      longitude: position.coords.longitude
+                    };
+                    user.$save();
+                  }, function(err) {
+                    // error
+                  });
+
                   $scope.closeLogin();
                 }, function(data, status) {
                   alert(data);
@@ -65,7 +91,9 @@ angular.module('starter.controllers', [])
   var _req = {
     user_id: Settings.user.id,
     status: 'waiting',
-    abilities: []
+    abilities: [],
+    location: Settings.user.location,
+    user: Settings.user
   };
   $scope.req = _req;
   $ionicModal.fromTemplateUrl('templates/modal-new-request.html', {
