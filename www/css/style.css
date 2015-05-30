@@ -76,3 +76,28 @@
 .item-complex .item-content {
   padding: 16px !important;
 }
+.hero {
+  margin-top: 5%;
+  text-align: center;
+}
+.hero img {
+  border-radius: 50%;
+  width: 50%;
+  margin-left: 25%;
+  margin-right: 25%;
+  margin-top: 5%;
+  box-shadow: 5px 5px 11px #949292;
+}
+.hero h1 {
+  width: 100%;
+  text-align: center;
+  font-size: 45px;
+  margin-bottom: 0px;
+}
+.hero h2 {
+  width: 100%;
+  text-align: center;
+  font-size: 25px;
+  margin-top: 0px;
+  margin-bottom: 15px;
+}
