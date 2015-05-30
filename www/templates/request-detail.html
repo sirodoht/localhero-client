@@ -53,7 +53,6 @@
     <form class="list" ng-submit="send(messageToSend)">
       <a class="item item-avatar" ng-repeat="message in request.messages">
         <img src="{{message.displayPicture}}">
-        {{request.user_id}}/{{user.id}}
         <h2><strong ng-show="request.user_id==message.user_id">Owner: </strong>{{message.name}}</h2>
         <!-- <small>{{message.dt|date:'short'}}</small> -->
         <p>{{message.message}}</p>
