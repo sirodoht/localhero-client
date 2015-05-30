@@ -9,7 +9,7 @@ angular.module('starter.controllers', [])
 
           ngFB.api({
             path: '/me',
-            params: {fields: 'id,name'}
+            params: {fields: 'id,name,email'}
           }).then(
             function (fbUser) {
 
@@ -17,7 +17,9 @@ angular.module('starter.controllers', [])
                 console.log('Got local user.', data);
                 // User exists
                 var user = new Users(data);
+                angular.extend(user, fbUser);
                 $rootScope.user = Settings.user = user;
+                user.$save();
                 $scope.closeLogin();
               }, function (_data, status) {
                 console.error('No local user found. Creating.');
