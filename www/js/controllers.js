@@ -100,8 +100,37 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('RequestDetailCtrl', function($scope, $state, $stateParams, Requests, Settings) {
+.controller('RequestDetailCtrl', function($scope, $state, $stateParams, $sails, Requests, Settings) {
+  $scope.messageToSend = "";
   $scope.request = Requests.get({id: $stateParams.requestId});
+  $sails.on("request", function (message) {
+    console.info(message);
+    if (message.verb === "updated") {
+      angular.extend($scope.request, message.data);
+    }
+  });
+  $sails.get("/request/"+$stateParams.requestId)
+  .success(function (data, status, headers, jwr) {
+    // $scope.bars = data;
+    console.info(data);
+  })
+  .error(function (data, status, headers, jwr) {
+    alert('Houston, we got a problem!');
+  });
+  $scope.send = function(msg) {
+    // var msg = $scope.messageToSend;
+    console.info(msg);
+    if ($scope.message == "") return;
+    if (!$scope.request.messages) $scope.request.messages = [];
+    $scope.request.messages.push({
+      message: msg,
+      name: Settings.user.name,
+      displayPicture: "http://graph.facebook.com/"+Settings.user.id+"/picture?width=100&height=100",
+      dt: new Date()
+    });
+    $scope.request.$save();
+    $scope.messageToSend = "";
+  }
   $scope.respond = function() {
     $scope.request.status = "inprogress";
     $scope.request.responder_id = Settings.user.id;
