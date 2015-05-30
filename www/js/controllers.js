@@ -167,6 +167,14 @@ angular.module('starter.controllers', [])
       // TODO error
     });
   }
+  $scope.complete = function() {
+    $scope.request.canceled = true;
+    $scope.request.$save(function(data, status){
+      $state.go('tab.requests');
+    }, function(data, status) {
+      // TODO error
+    });
+  }
 })
 
 .controller('AccountCtrl', function($scope, $rootScope, ngFB, Settings, Users) {
