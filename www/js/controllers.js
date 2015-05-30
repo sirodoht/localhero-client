@@ -167,6 +167,7 @@ angular.module('starter.controllers', [])
   $scope.respond = function() {
     $scope.request.status = "inprogress";
     $scope.request.responder_id = Settings.user.id;
+    $scope.request.responder = Settings.user;
     $scope.request.$save();
   }
   $scope.cancel = function() {

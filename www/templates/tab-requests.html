@@ -27,7 +27,7 @@
           <span class="xbadge assertive-bg light" ng-show="!request.status || request.status=='waiting'" style="float: right;">no response</span>
           <span class="xbadge energized-bg light" ng-show="request.status=='inprogress'" style="float: right;">in proress</span>
           <span class="xbadge balanced-bg light" ng-show="request.status=='completed'" style="float: right;">completed!</span>
-          {{request.location}}
+          By: {{request.user.name}}
         </p>
         <!-- <i class="icon ion-chevron-right icon-accessory"></i> -->
 
