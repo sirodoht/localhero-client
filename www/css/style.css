@@ -1,1 +1,58 @@
 /* Empty. Add your own CSS if you like */
+
+.ionic .rounded {
+  border-radius: 4px; }
+.ionic .light, .ionic a.light {
+  color: #fff; }
+.ionic .light-bg {
+  background-color: #fff; }
+.ionic .light-border {
+  border-color: #ddd; }
+.ionic .stable, .ionic a.stable {
+  color: #f8f8f8; }
+.ionic .stable-bg {
+  background-color: #f8f8f8; }
+.ionic .stable-border {
+  border-color: #b2b2b2; }
+.ionic .positive, .ionic a.positive {
+  color: #387ef5; }
+.ionic .positive-bg {
+  background-color: #387ef5; }
+.ionic .positive-border {
+  border-color: #0c63ee; }
+.ionic .calm, .ionic a.calm {
+  color: #11c1f3; }
+.ionic .calm-bg {
+  background-color: #11c1f3; }
+.ionic .calm-border {
+  border-color: #0a9ec7; }
+.ionic .assertive, .ionic a.assertive {
+  color: #ef473a; }
+.ionic .assertive-bg {
+  background-color: #ef473a; }
+.ionic .assertive-border {
+  border-color: #e42012; }
+.ionic .balanced, .ionic a.balanced {
+  color: #33cd5f; }
+.ionic .balanced-bg {
+  background-color: #33cd5f; }
+.ionic .balanced-border {
+  border-color: #28a54c; }
+.ionic .energized, .ionic a.energized {
+  color: #ffc900; }
+.ionic .energized-bg {
+  background-color: #ffc900; }
+.ionic .energized-border {
+  border-color: #e6b400; }
+.ionic .royal, .ionic a.royal {
+  color: #886aea; }
+.ionic .royal-bg {
+  background-color: #886aea; }
+.ionic .royal-border {
+  border-color: #6b46e5; }
+.ionic .dark, .ionic a.dark {
+  color: #444; }
+.ionic .dark-bg {
+  background-color: #444; }
+.ionic .dark-border {
+  border-color: #111; }
