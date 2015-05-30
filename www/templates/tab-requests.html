@@ -7,7 +7,7 @@
       <li class="item item-toggle">
          Only the ones I can help with
          <label class="toggle toggle-assertive">
-           <input type="checkbox" ng-model="limit">
+           <input type="checkbox" ng-model="doFilter">
            <div class="track">
              <div class="handle"></div>
            </div>
@@ -15,7 +15,7 @@
       </li>
     </ul>
     <ion-list>
-      <ion-item class="item-remove-animate ~item-avatar ~item-icon-right" ng-repeat="request in requests" type="item-text-wrap" href="#/tab/requests/{{request.id}}" ng-hide="request.canceled==true">
+      <ion-item class="item-remove-animate ~item-avatar ~item-icon-right" ng-repeat="request in requests | sameAbilties:doFilter" type="item-text-wrap" href="#/tab/requests/{{request.id}}" ng-hide="request.canceled==true">
         <!-- <img ng-src="{{request.face}}"> -->
         <h2 ng-class="{'positive': request.user_id==user.id, 'balanced': request.responder_id==user.id}">
           <div class="xbadge stable-bg dark-border" ng-repeat="ability in request.abilities" style="float: right;">{{ability}}</div>

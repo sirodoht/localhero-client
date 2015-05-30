@@ -44,6 +44,31 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   });
 })
 
+.filter('sameAbilties', function(Settings) {
+  return function(input, filter) {
+    var userAbilities = Settings.user.abilities;
+    // console.info(userAbilities);
+    // console.info(input);
+    var _requests = [];
+    if (filter === true) {
+      angular.forEach(input, function(request) {
+        if (request.abilities && userAbilities) {
+          for (var i = 0; i < userAbilities.length; i++) {
+            for (var j = 0; j < request.abilities.length; j++) {
+              if (request.abilities[j] === userAbilities[i]) {
+                _requests.push(request);
+              }
+            }
+          }
+        }
+      });
+    } else {
+      _requests = input;
+    }
+    return _requests;
+  };
+})
+
 .config(function($stateProvider, $urlRouterProvider, $sailsProvider) {
 
   $sailsProvider.url = 'http://188.166.100.201:80';
@@ -112,6 +137,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       }
     }
   });
+
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/login');
