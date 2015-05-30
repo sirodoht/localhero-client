@@ -99,8 +99,8 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
-  $scope.chat = Chats.get($stateParams.chatId);
+.controller('RequestDetailCtrl', function($scope, $stateParams, Requests) {
+  $scope.request = Requests.get({id: $stateParams.requestId});
 })
 
 .controller('AccountCtrl', function($scope, $rootScope, ngFB, Settings, Users) {
