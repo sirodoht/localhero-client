@@ -21,6 +21,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
     ngFB.init({appId: '424732781033021'});
 
+    $state.go('login');
+
   });
 })
 
