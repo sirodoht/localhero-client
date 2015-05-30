@@ -57,11 +57,46 @@ angular.module('starter.controllers', [])
 
 .controller('DashCtrl', function($scope) {})
 
-.controller('ChatsCtrl', function($scope, Chats) {
-  $scope.chats = Chats.all();
-  $scope.remove = function(chat) {
-    Chats.remove(chat);
-  }
+.controller('RequestsCtrl', function($scope, $ionicModal, Requests, Settings) {
+  $scope.requests = Requests.query();
+  var _req = {
+    user_id: Settings.user.id
+  };
+  $scope.req = _req;
+  $ionicModal.fromTemplateUrl('templates/modal-new-request.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.modal = modal;
+  });
+  $scope.openModal = function() {
+    $scope.modal.show();
+  };
+  $scope.closeModal = function() {
+    $scope.modal.hide();
+  };
+  //Cleanup the modal when we're done with it!
+  $scope.$on('$destroy', function() {
+    $scope.modal.remove();
+  });
+  // Execute action on hide modal
+  $scope.$on('modal.hidden', function() {
+    // Execute action
+  });
+  // Execute action on remove modal
+  $scope.$on('modal.removed', function() {
+    // Execute action
+  });
+  $scope.submit = function() {
+    Requests.save($scope.req, function(data, status) {
+      // Saved.
+      $scope.closeModal();
+      $scope.req = _req;
+      $scope.requests = Requests.query();
+    }, function (data, status) {
+      alert(data);
+    });
+  };
 })
 
 .controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {

@@ -39,6 +39,11 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
    });
 })
 
+.service('Requests', function($resource, Settings) {
+  return $resource(Settings.url+'/request/:id', {id: '@id'}, {
+  });
+})
+
 .config(function($stateProvider, $urlRouterProvider) {
 
   // Ionic uses AngularUI Router which uses the concept of states
@@ -73,12 +78,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     }
   })
 
-  .state('tab.chats', {
-      url: '/chats',
+  .state('tab.requests', {
+      url: '/requests',
       views: {
-        'tab-chats': {
-          templateUrl: 'templates/tab-chats.html',
-          controller: 'ChatsCtrl'
+        'tab-requests': {
+          templateUrl: 'templates/tab-requests.html',
+          controller: 'RequestsCtrl'
         }
       }
     })
