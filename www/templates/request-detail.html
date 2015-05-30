@@ -4,11 +4,23 @@
   The FriendsCtrl pulls data from the Friends service (service.js)
   The Friends service returns an array of friend data
 -->
-<ion-view view-title="{{request.description}}">
-  <ion-content class="padding">
+<ion-view view-title="Request details">
+  <ion-content>
+
+    <div class="bar bar-header bar-light">
+      <h1 class="title">{{request.title}}</h1>
+    </div>
+
+    <div class="bar bar-subheader" ng-class="{'bar-assertive': (!request.status || request.status=='waiting'), 'bar-energized': (request.status=='inprogress'), 'bar-balanced': (request.status=='completed')}">
+      <h3 class="title" ng-show="!request.status || request.status=='waiting'">no response</h3>
+      <h3 class="title" ng-show="request.status=='inprogress'">in proress</h3>
+      <h3 class="title" ng-show="request.status=='completed'">completed!</h3>
+    </div>
+
     <!-- <img ng-src="{{chat.face}}" style="width: 64px; height: 64px"> -->
     <p>
       {{request.location}}
     </p>
+
   </ion-content>
 </ion-view>

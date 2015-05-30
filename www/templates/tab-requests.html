@@ -17,6 +17,9 @@
     <ion-list>
       <ion-item class="item-remove-animate ~item-avatar ~item-icon-right" ng-repeat="request in requests" type="item-text-wrap" href="#/tab/requests/{{request.id}}">
         <!-- <img ng-src="{{request.face}}"> -->
+        <span class="badge badge-assertive" ng-show="!request.status || request.status=='waiting'">no response</span>
+        <span class="badge badge-energized" ng-show="request.status=='inprogress'">in proress</span>
+        <span class="badge badge-balanced" ng-show="request.status=='completed'">completed!</span>
         <h2>{{request.description}}</h2>
         <p>{{request.location}}</p>
         <!-- <i class="icon ion-chevron-right icon-accessory"></i> -->
