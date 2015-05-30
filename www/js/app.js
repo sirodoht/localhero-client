@@ -70,6 +70,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
   .state('tab.dash', {
     url: '/dash',
+    cache: false,
     views: {
       'tab-dash': {
         templateUrl: 'templates/tab-dash.html',
@@ -80,6 +81,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
   .state('tab.requests', {
       url: '/requests',
+      cache: false,
       views: {
         'tab-requests': {
           templateUrl: 'templates/tab-requests.html',
@@ -89,6 +91,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     })
     .state('tab.request-detail', {
       url: '/requests/:requestId',
+      cache: false,
       views: {
         'tab-requests': {
           templateUrl: 'templates/request-detail.html',
@@ -99,6 +102,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
   .state('tab.account', {
     url: '/account',
+    cache: false,
     views: {
       'tab-account': {
         templateUrl: 'templates/tab-account.html',
