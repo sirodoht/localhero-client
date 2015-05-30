@@ -2,6 +2,7 @@ angular.module('starter.controllers', [])
 
 .controller('LoginCtrl', function($scope, $rootScope, $state, $http, ngFB, Users, Settings) {
   $scope.fbLogin = function() {
+    $rootScope.abilities = ['programming', 'engineering', 'gardening', 'knitting'];
     ngFB.login({scope: 'email'}).then(
       function (response) {
         if (response.status === 'connected') {
@@ -63,7 +64,8 @@ angular.module('starter.controllers', [])
   $scope.requests = Requests.query();
   var _req = {
     user_id: Settings.user.id,
-    status: 'waiting'
+    status: 'waiting',
+    abilities: []
   };
   $scope.req = _req;
   $ionicModal.fromTemplateUrl('templates/modal-new-request.html', {
@@ -167,7 +169,6 @@ angular.module('starter.controllers', [])
 })
 
 .controller('AccountCtrl', function($scope, $rootScope, ngFB, Settings, Users) {
-  $scope.abilities = ['one', 'two', 'three'];
   $scope.user = Settings.user;
   $scope.addAbility = function(ability) {
     Settings.user.abilities.push(ability);
