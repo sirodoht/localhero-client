@@ -3,6 +3,17 @@
     <div class="padding">
       <button class="button button-block button-positive activated" ng-click="openModal()">Submit Request</button>
     </div>
+    <ul class="list">
+      <li class="item item-toggle">
+         Only the ones I can help with
+         <label class="toggle toggle-assertive">
+           <input type="checkbox" ng-model="limit">
+           <div class="track">
+             <div class="handle"></div>
+           </div>
+         </label>
+      </li>
+    </ul>
     <ion-list>
       <ion-item class="item-remove-animate ~item-avatar ~item-icon-right" ng-repeat="request in requests" type="item-text-wrap" href="#/tab/chats/{{chat.id}}">
         <!-- <img ng-src="{{request.face}}"> -->
