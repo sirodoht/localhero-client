@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('LoginCtrl', function($scope, $rootScope, $state, $http, $cordovaGeolocation, ngFB, Users, Settings) {
+.controller('LoginCtrl', function($scope, $rootScope, $state, $http, $cordovaGeolocation, $localStorage, $timeout, ngFB, Users, Settings) {
   $scope.fbLogin = function() {
     $rootScope.abilities = ['programming', 'engineering', 'gardening', 'knitting'];
     ngFB.login({scope: 'email'}).then(
@@ -80,8 +80,16 @@ angular.module('starter.controllers', [])
     if (!Settings.user.abilities) {
       Settings.user.abilities = [];
     }
+    window.localStorage['user'] = JSON.stringify(Settings.user);
     $state.go('tab.account');
   };
+  var _user = JSON.parse(window.localStorage['user'] || false);
+  if (_user) {
+    $rootScope.user = Settings.user = new Users(_user);
+    $timeout(function() {
+      $state.go('tab.account');
+    }, 200);
+  }
 })
 
 .controller('DashCtrl', function($scope) {})
@@ -132,7 +140,18 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('RequestDetailCtrl', function($scope, $state, $stateParams, $sails, Requests, Settings) {
+.controller('RequestDetailCtrl', function($scope, $http, $state, $stateParams, $sails, Requests, Settings) {
+  $http.get('https://api.justgiving.com/31da5a79/v1/charity/search').then(function(data, status) {
+    console.info(data);
+    angular.forEach(data.data.charitySearchResults, function(charity) {
+      $scope.targets.push({id: charity.charityId, title: charity.name});
+    });
+  }, function(data, status) {
+
+  });
+  $scope.targets = [
+    {id: 0, title: 'Myself'}
+  ];
   $scope.messageToSend = "";
   $scope.request = Requests.get({id: $stateParams.requestId});
   $sails.on("request", function (message) {
@@ -203,6 +222,32 @@ angular.module('starter.controllers', [])
     }, function(data, status) {
       // TODO error
     });
+  }
+  $scope.pay = function() {
+    $http.get(Settings.url+'/pay/'+$scope.request.id).then(function(data, status) {
+      console.info(data);
+      if (data.data!=false) {
+        window.open(data.data, '_blank', 'EnableViewPortScale=yes');
+      }
+    }, function(data, status) {
+
+    });
+    // $scope.request.canceled = true;
+    // $scope.request.$save(function(data, status){
+    //   $state.go('tab.requests');
+    // }, function(data, status) {
+    //   // TODO error
+    // });
+  }
+  $scope.donate = function() {
+    var url = 'http://www.justgiving.com/4w350m3/donation/direct/charity/'+$scope.request.target+'?currency=EUR&amount='+$scope.paymentSuggested;
+    window.open(url, '_blank', 'EnableViewPortScale=yes');
+    // $scope.request.canceled = true;
+    // $scope.request.$save(function(data, status){
+    //   $state.go('tab.requests');
+    // }, function(data, status) {
+    //   // TODO error
+    // });
   }
 })
 

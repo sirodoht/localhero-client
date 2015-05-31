@@ -1,11 +1,11 @@
 <ion-view view-title="Requests">
   <ion-content>
     <div class="padding">
-      <button class="button button-block button-positive activated" ng-click="openModal()">Submit Request</button>
+      <button class="button button-block button-positive activated" ng-click="openModal()">Ask for help</button>
     </div>
-    <ul class="list">
+    <ion-list>
       <li class="item item-toggle">
-         Only the ones I can help with
+         Show just the ones I can help with
          <label class="toggle toggle-assertive">
            <input type="checkbox" ng-model="doFilter">
            <div class="track">
@@ -13,18 +13,16 @@
            </div>
          </label>
       </li>
-    </ul>
-    <ion-list>
-      <ion-item class="item-remove-animate ~item-avatar ~item-icon-right" ng-repeat="request in requests | sameAbilties:doFilter" type="item-text-wrap" href="#/tab/requests/{{request.id}}" ng-hide="request.canceled==true">
-        <!-- <img ng-src="{{request.face}}"> -->
+      <ion-item class="item-avatar" ng-repeat="request in requests | sameAbilties:doFilter" type="item-text-wrap" href="#/tab/requests/{{request.id}}" ng-hide="request.canceled==true">
+        <img ng-src="{{request.user.displayPicture}}">
         <h2 ng-class="{'positive': request.user_id==user.id, 'balanced': request.responder_id==user.id}">
           <div class="xbadge stable-bg dark-border" ng-repeat="ability in request.abilities" style="float: right;">{{ability}}</div>
-          <strong ng-show="request.user_id==user.id">Mine:</strong>
+          <!-- <strong ng-show="request.user_id==user.id">Mine:</strong> -->
           <strong ng-show="request.responder_id==user.id">I am helping:</strong>
           {{request.title||request.description}}
         </h2>
         <p>
-          <span class="xbadge assertive-bg light" ng-show="!request.status || request.status=='waiting'" style="float: right;">no response</span>
+          <span class="xbadge assertive-bg light" ng-show="!request.status || request.status=='waiting'" style="float: right;">waiting for offers</span>
           <span class="xbadge energized-bg light" ng-show="request.status=='inprogress'" style="float: right;">in proress</span>
           <span class="xbadge balanced-bg light" ng-show="request.status=='completed'" style="float: right;">completed!</span>
           By: {{request.user.name}}

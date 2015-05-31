@@ -28,13 +28,13 @@
           <input type="number" placeholder="10" ng-model="req.paymentSuggested" value="0" required="required" style="text-align: right;">
         </label>
       </div>
-      <div class="card map">
+      <!-- <div class="card map">
         <map center="{{request.location.latitude}}, {{request.location.longitude}}" zoom="6">
           <info-window position="current-location" visible="true">
             <span>You!</span>
           </info-window>
         </map>
-      </div>
+      </div> -->
       <div class="padding">
         <button type="submit" class="button button-block button-positive activated">Submit Request</button>
         <button class="button button-block" ng-click="closeModal()">Cancel</button>
