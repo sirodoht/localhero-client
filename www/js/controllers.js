@@ -85,8 +85,7 @@ angular.module('starter.controllers', [])
   };
   var _user = JSON.parse(window.localStorage['user'] || false);
   if (_user) {
-    Settings.user = _user;
-    $scope._user = _user;
+    $rootScope.user = Settings.user = new Users(_user);
     $timeout(function() {
       $state.go('tab.account');
     }, 200);
