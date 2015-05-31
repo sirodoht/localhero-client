@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "ngCordova": "~0.1.15-alpha",
-    "ngmap": "~1.7.10"
+    "ngmap": "~1.7.10",
+    "ngstorage": "~0.3.4"
   }
 }

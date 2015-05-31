@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('LoginCtrl', function($scope, $rootScope, $state, $http, $cordovaGeolocation, ngFB, Users, Settings) {
+.controller('LoginCtrl', function($scope, $rootScope, $state, $http, $cordovaGeolocation, $localStorage, $timeout, ngFB, Users, Settings) {
   $scope.fbLogin = function() {
     $rootScope.abilities = ['programming', 'engineering', 'gardening', 'knitting'];
     ngFB.login({scope: 'email'}).then(
@@ -80,8 +80,17 @@ angular.module('starter.controllers', [])
     if (!Settings.user.abilities) {
       Settings.user.abilities = [];
     }
+    window.localStorage['user'] = JSON.stringify(Settings.user);
     $state.go('tab.account');
   };
+  var _user = JSON.parse(window.localStorage['user'] || false);
+  if (_user) {
+    Settings.user = _user;
+    $scope._user = _user;
+    $timeout(function() {
+      $state.go('tab.account');
+    }, 200);
+  }
 })
 
 .controller('DashCtrl', function($scope) {})
