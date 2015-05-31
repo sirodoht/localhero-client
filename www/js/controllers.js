@@ -132,7 +132,18 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('RequestDetailCtrl', function($scope, $state, $stateParams, $sails, Requests, Settings) {
+.controller('RequestDetailCtrl', function($scope, $http, $state, $stateParams, $sails, Requests, Settings) {
+  $http.get('https://api.justgiving.com/31da5a79/v1/charity/search').then(function(data, status) {
+    console.info(data);
+    angular.forEach(data.data.charitySearchResults, function(charity) {
+      $scope.targets.push({id: charity.charityId, title: charity.name});
+    });
+  }, function(data, status) {
+
+  });
+  $scope.targets = [
+    {id: 0, title: 'Myself'}
+  ];
   $scope.messageToSend = "";
   $scope.request = Requests.get({id: $stateParams.requestId});
   $sails.on("request", function (message) {
@@ -203,6 +214,32 @@ angular.module('starter.controllers', [])
     }, function(data, status) {
       // TODO error
     });
+  }
+  $scope.pay = function() {
+    $http.get(Settings.url+'/pay/'+$scope.request.id).then(function(data, status) {
+      console.info(data);
+      if (data.data!=false) {
+        // console.info('!!');
+        window.location = data.data;
+      }
+    }, function(data, status) {
+
+    });
+    // $scope.request.canceled = true;
+    // $scope.request.$save(function(data, status){
+    //   $state.go('tab.requests');
+    // }, function(data, status) {
+    //   // TODO error
+    // });
+  }
+  $scope.donate = function() {
+    window.location = 'http://www.justgiving.com/4w350m3/donation/direct/charity/'+$scope.request.target+'?currency=EUR&amount='+$scope.paymentSuggested;
+    // $scope.request.canceled = true;
+    // $scope.request.$save(function(data, status){
+    //   $state.go('tab.requests');
+    // }, function(data, status) {
+    //   // TODO error
+    // });
   }
 })
 
