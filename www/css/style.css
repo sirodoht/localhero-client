@@ -74,7 +74,7 @@
   border: 1px solid;
 }
 .item-complex .item-content {
-  padding: 16px !important;
+  padding-right: 16px !important;
 }
 .hero {
   margin-top: 5%;
@@ -115,4 +115,7 @@
 .account h2 {
   font-size: 23px;
   text-align: center;
+}
+h1, h2, h3 {
+  padding-left: 10px;
 }
