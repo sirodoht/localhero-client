@@ -227,8 +227,7 @@ angular.module('starter.controllers', [])
     $http.get(Settings.url+'/pay/'+$scope.request.id).then(function(data, status) {
       console.info(data);
       if (data.data!=false) {
-        // console.info('!!');
-        window.location = data.data;
+        window.open(data.data, '_blank', 'EnableViewPortScale=yes');
       }
     }, function(data, status) {
 
@@ -241,7 +240,8 @@ angular.module('starter.controllers', [])
     // });
   }
   $scope.donate = function() {
-    window.location = 'http://www.justgiving.com/4w350m3/donation/direct/charity/'+$scope.request.target+'?currency=EUR&amount='+$scope.paymentSuggested;
+    var url = 'http://www.justgiving.com/4w350m3/donation/direct/charity/'+$scope.request.target+'?currency=EUR&amount='+$scope.paymentSuggested;
+    window.open(url, '_blank', 'EnableViewPortScale=yes');
     // $scope.request.canceled = true;
     // $scope.request.$save(function(data, status){
     //   $state.go('tab.requests');
