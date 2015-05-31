@@ -1,8 +1,8 @@
 angular.module('starter.controllers', [])
 
 .controller('LoginCtrl', function($scope, $rootScope, $state, $http, $cordovaGeolocation, $localStorage, $timeout, ngFB, Users, Settings) {
+  $rootScope.abilities = ['programming', 'engineering', 'gardening', 'knitting'];
   $scope.fbLogin = function() {
-    $rootScope.abilities = ['programming', 'engineering', 'gardening', 'knitting'];
     ngFB.login({scope: 'email'}).then(
       function (response) {
         if (response.status === 'connected') {
